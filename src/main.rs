@@ -170,16 +170,14 @@ fn cmd_create(cmd_args: &CreateArgs, mk_gpgh: gpgh::MkGpgh) -> Result<()> {
 }
 
 fn cmd_recrypt(cmd_args: &RecryptArgs, mk_gpgh: gpgh::MkGpgh) -> Result<()> {
-    println!("command: recrypt with uid {:?}", cmd_args.uid);
-
     let db_file = db_file_path(cmd_args.file.clone())?;
+    println!("Re-encrypting {}", db_file.display());
     let (_flock, mut rdb) = db_open(
         &db_file,
         FileOptions::new().read(true).write(true),
         &mk_gpgh,
         cmd_args.uid.clone(),
     )?;
-    println!("Re-encrypting...");
     rdb.recrypt_all_rcds(&mk_gpgh)?
         .into_iter()
         .for_each(|e| eprintln!("Warning: {e:?}"));
@@ -188,11 +186,8 @@ fn cmd_recrypt(cmd_args: &RecryptArgs, mk_gpgh: gpgh::MkGpgh) -> Result<()> {
 }
 
 fn cmd_import(cmd_args: &ImportArgs, mk_gpgh: gpgh::MkGpgh) -> Result<()> {
-    println!(
-        "command: import {:?} with uid {:?}",
-        cmd_args.infile, cmd_args.uid
-    );
     let db_path = db_file_path_prepare_create(cmd_args.file.clone())?;
+    println!("Importing to {}", db_path.display());
     let infile = fs::File::open(&cmd_args.infile)
         .with_context(|| format!("openning {:?}", &cmd_args.infile))?;
 
@@ -215,16 +210,12 @@ fn cmd_import(cmd_args: &ImportArgs, mk_gpgh: gpgh::MkGpgh) -> Result<()> {
         .into_iter()
         .for_each(|e| eprintln!("Warning: {e:?}"));
     db_write_new(&rdb, &db_path, mk_gpgh)?;
-    println!("Imported to {:?}", db_path.canonicalize()?);
     Ok(())
 }
 
 fn cmd_export(cmd_args: &ExportArgs, mk_gpgh: gpgh::MkGpgh) -> Result<()> {
-    println!(
-        "command: export {:?} with uid {:?}",
-        cmd_args.outfile, cmd_args.uid
-    );
     let db_file = db_file_path(cmd_args.file.clone())?;
+    println!("Exporting {}", db_file.display());
     let outfile = &cmd_args.outfile;
     let (_flock, mut rdb) = db_open(
         &db_file,
