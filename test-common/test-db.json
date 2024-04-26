@@ -1,0 +1,47 @@
+{
+    "records": {
+        "bar": {
+            "comment": "just a barsie",
+            "store": {
+                "values": {
+                    "bar-one": "bar first"
+                }
+            }
+        },
+        "foo": {
+            "comment": "just a foosie",
+            "store": {
+                "values": {
+                    "foo-one": "foo first",
+                    "foo-two": "foo second"
+                }
+            }
+        },
+        "foobar": {
+            "comment": "a foosie and a barsie",
+            "store": {
+                "values": {
+                    "fooboar-one": "foobar first",
+                    "foobar-two": "foobar second",
+                    "foobar-three": "foobar third"
+                }
+            }
+        },
+        "empty": { }
+    },
+    "tags": {
+        "barsies": {
+            "str": [
+                "bar",
+                "foobar"
+            ]
+        },
+        "foosies": {
+            "str": [
+                "foo",
+                "foobar"
+            ]
+        },
+        "nonesies": { }
+    }
+}

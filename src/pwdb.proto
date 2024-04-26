@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package pwdb.pb;
+
+message Store {
+// Simple key-value store
+    map<string, string> values = 1;
+}
+
+message Strlist {
+// Generic list of strings wrapper for use as a map value type
+    repeated string str = 1;
+}
+
+message Record {
+// Record type of the pwdb database
+    oneof payload {
+        bytes data = 1;                         // encrypted Store
+        Store store = 16;                       // flattened, in the clear
+    }
+    string comment = 2;                     // user comment
+    repeated string recipient = 3;          // additional encryption recipients
+}
+
+message DB {
+// Main pwdb database
+    map<string, Record> records = 1;        // map of Records
+    string uid = 2;                         // GPG UID of signer and primary
+                                            //  encryption recipient
+    map<string, Strlist> tags = 4;          // index of Record names by tag
+}

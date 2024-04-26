@@ -1,0 +1,13 @@
+newline_style = "unix"
+
+fn_params_layout = "Compressed"
+
+max_width = 80
+fn_call_width = 72
+attr_fn_like_width = 72
+struct_lit_width = 72
+struct_variant_width = 72
+array_width = 72
+chain_width = 72
+single_line_if_else_max_width = 72
+single_line_let_else_max_width = 72

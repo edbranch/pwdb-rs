@@ -1,0 +1,34 @@
+[package]
+name = "pwdb"
+version = "0.2.0"
+authors = ["Ed Branch"]
+description = "Basic local secure data store for passwords and account info"
+license = "GPL-3.0-only"
+edition = "2021"
+rust-version = "1.77"
+publish = false
+
+[dependencies]
+anyhow = { version = "1.0.81", features = ["backtrace"] }
+clap = { version = "4.5", features = ["deprecated", "derive"] }
+crossterm = { version = "0.27.0", default-features = false }
+directories = "5.0.1"
+file-lock = "2.1.10"
+gpgme = "0.11.0"
+protobuf = "3.4.0"
+protobuf-json-mapping = "3.4.0"
+rustyline = { version = "13.0.0", default-features = false }
+shell-words = "1.1.0"
+wildmatch = "2.3.0"
+
+[dev-dependencies]
+sealed_test = "1.0.0"
+
+[build-dependencies]
+# NOTE: Must either BYO protoc and ensure it is in $PATH,
+# add protoc_bin_vendored or add protobuf-parse.
+protobuf-codegen = "3.4"
+
+[[bin]]
+name = "pwdb"
+path = "src/main.rs"
