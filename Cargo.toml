@@ -11,15 +11,15 @@ publish = false
 [dependencies]
 anyhow = { version = "1.0.81", features = ["backtrace"] }
 clap = { version = "4.5", features = ["deprecated", "derive"] }
-crossterm = { version = "0.27.0", default-features = false }
+crossterm = { version = "0.28.0", default-features = false }
 directories = "5.0.1"
-file-lock = "2.1.10"
+file-lock = "2.1.11"
 gpgme = "0.11.0"
-protobuf = "3.4.0"
-protobuf-json-mapping = "3.4.0"
-rustyline = { version = "13.0.0", default-features = false }
+protobuf = "3.7.1"
+protobuf-json-mapping = "3.7.1"
+rustyline = { version = "15.0.0", default-features = false }
 shell-words = "1.1.0"
-wildmatch = "2.3.0"
+wildmatch = "2.4.0"
 
 [dev-dependencies]
 sealed_test = "1.0.0"
