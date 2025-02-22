@@ -4,8 +4,8 @@ version = "0.2.0"
 authors = ["Ed Branch"]
 description = "Basic local secure data store for passwords and account info"
 license = "GPL-3.0-only"
-edition = "2021"
-rust-version = "1.77"
+edition = "2024"
+rust-version = "1.85"
 publish = false
 
 [dependencies]

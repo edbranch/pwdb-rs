@@ -27,18 +27,18 @@ const DB_FILE_DEFAULT: &str = "pwdb.gpg";
 
 struct AllocZeroOnDealloc;
 unsafe impl GlobalAlloc for AllocZeroOnDealloc {
-    unsafe fn alloc(&self, layout: Layout) -> *mut u8 {
+    unsafe fn alloc(&self, layout: Layout) -> *mut u8 { unsafe {
         System.alloc(layout)
-    }
+    }}
 
-    unsafe fn dealloc(&self, ptr: *mut u8, layout: Layout) {
+    unsafe fn dealloc(&self, ptr: *mut u8, layout: Layout) { unsafe {
         std::ptr::write_bytes(
             ptr,
             0u8,
             layout.size() / std::mem::size_of::<u8>(),
         );
         System.dealloc(std::hint::black_box(ptr), layout)
-    }
+    }}
 }
 #[global_allocator]
 static GLOBAL: AllocZeroOnDealloc = AllocZeroOnDealloc;
