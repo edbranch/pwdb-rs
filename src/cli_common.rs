@@ -3,7 +3,7 @@
 
 //! Common REPL and helpers for `db_cli` and `record_cli`.
 
-use rustyline::{error::ReadlineError, Result as ReadlineResult};
+use rustyline::{Result as ReadlineResult, error::ReadlineError};
 
 use std::env;
 

@@ -4,7 +4,7 @@
 //! Command line interface for a record.
 
 use super::{
-    cli_common::{columnize, repl_run, Action, RetVal},
+    cli_common::{Action, RetVal, columnize, repl_run},
     pb::pwdb as pb,
 };
 

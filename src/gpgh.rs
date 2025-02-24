@@ -9,7 +9,7 @@
 use super::db;
 
 use anyhow::{Context, Error as AnyError, Result as AnyResult};
-use gpgme::{error::Error as GpgError, Context as GpgContext, Protocol};
+use gpgme::{Context as GpgContext, Protocol, error::Error as GpgError};
 
 use std::path::PathBuf;
 

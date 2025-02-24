@@ -4,7 +4,7 @@
 //! Command line interface for the password database
 
 use super::{
-    cli_common::{columnize, repl_run, Action, RetVal},
+    cli_common::{Action, RetVal, columnize, repl_run},
     db,
     pb::pwdb as pb,
     record_cli,
@@ -13,8 +13,8 @@ use super::{
 use anyhow::Context;
 use clap::arg;
 use crossterm::{
-    terminal::{EnterAlternateScreen, LeaveAlternateScreen},
     ExecutableCommand,
+    terminal::{EnterAlternateScreen, LeaveAlternateScreen},
 };
 use rustyline::Result as ReadlineResult;
 use wildmatch::WildMatch;
@@ -759,9 +759,10 @@ mod tests {
         rnr.run_line("mk-tag barsies")?;
         rnr.run_line("mk-tag maybies")?;
         rnr.run_line("mk-record foo -t foosies")?;
-        assert!(rnr
-            .run_line("mod-record foo -t maybies -t none -c comment")
-            .is_err());
+        assert!(
+            rnr.run_line("mod-record foo -t maybies -t none -c comment")
+                .is_err()
+        );
         assert!(rnr.rdb.get_rcd("foo").unwrap().comment.is_empty());
         {
             let exp = HashMap::from([
@@ -772,9 +773,9 @@ mod tests {
             assert_eq!(lstc(&rnr, None), exp);
         }
         rnr.run_line("mod-record foo -t maybies -c comment")?;
-        assert!(rnr
-            .run_line("mod-record foo -u maybies -u none -c \"\"")
-            .is_err());
+        assert!(
+            rnr.run_line("mod-record foo -u maybies -u none -c \"\"").is_err()
+        );
         assert_eq!(rnr.rdb.get_rcd("foo").unwrap().comment, "comment");
         {
             let exp = HashMap::from([
@@ -811,12 +812,14 @@ mod tests {
         rnr.run_line("mk-record movable -t maybies")?;
         {
             let exp = rnr.rdb.get_pdb().clone();
-            assert!(rnr
-                .run_line("mod-record movable -m moved -t none -c cmt")
-                .is_err());
-            assert!(rnr
-                .run_line("mod-record movable -m foo -t barsies -c cmt")
-                .is_err());
+            assert!(
+                rnr.run_line("mod-record movable -m moved -t none -c cmt")
+                    .is_err()
+            );
+            assert!(
+                rnr.run_line("mod-record movable -m foo -t barsies -c cmt")
+                    .is_err()
+            );
             assert_eq!(rnr.rdb.get_pdb(), &exp);
         }
         Ok(())
